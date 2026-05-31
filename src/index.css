@@ -61,30 +61,13 @@ body {
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 8px;
 }
 
-.logo-badge {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: var(--color-blue-brand);
-  color: #ffffff;
-  font-family: "DM Sans", sans-serif;
-  font-weight: 900;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 68, 255, 0.2);
-}
-
-.logo-text {
-  font-family: "DM Sans", sans-serif;
-  font-size: 20px;
-  font-weight: 600;
+.nav-logo {
+  height: 26px;
+  width: auto;
   color: #111111;
-  letter-spacing: -0.04em;
+  display: block;
 }
 
 .nav-links {
@@ -793,12 +776,16 @@ body {
   gap: 20px;
 }
 
+.footer-logo-container {
+  display: flex;
+  align-items: center;
+}
+
 .footer-logo {
-  font-family: "DM Sans", sans-serif;
-  font-size: 22px;
-  font-weight: 700;
+  height: 24px;
+  width: auto;
   color: #111111;
-  letter-spacing: -0.04em;
+  display: block;
 }
 
 .footer p {
