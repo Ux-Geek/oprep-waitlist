@@ -26,9 +26,7 @@ body {
 
 .page {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top, rgba(0, 68, 255, 0.08), transparent 36%),
-    #ffffff;
+  background: #ffffff;
   overflow-x: hidden;
   position: relative;
 }
@@ -42,6 +40,11 @@ body {
   filter: blur(8px);
   opacity: 0.6;
   pointer-events: none;
+}
+
+.main-content.blurred .hero h1 {
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* NAV */
@@ -475,9 +478,10 @@ body {
   font-family: "DM Sans", sans-serif;
   font-size: clamp(48px, 10vw, 92px);
   line-height: 90%;
-  letter-spacing: -0.06em;
+  letter-spacing: 0.5px;
   color: #111111;
   font-weight: 500;
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero p {
