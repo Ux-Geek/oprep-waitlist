@@ -394,12 +394,6 @@ export default function App() {
           <Logo className="nav-logo" />
         </div>
 
-        <div className="nav-links">
-          <a href="#features">Features</a>
-          <a href="#system">The System</a>
-          <a href="#pricing">Pricing</a>
-        </div>
-
         <button onClick={() => setShowWaitlist(true)}>Join Waitlist</button>
       </nav>
 
