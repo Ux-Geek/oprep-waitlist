@@ -1,82 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { 
-  Check, 
-  Copy, 
-  Share2, 
-  ArrowRight
-} from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import OprepMockup from "./assets/Oprep Mockup.png";
-import OPrepBanner from "./assets/O-Prep Banner 1.png";
-
-
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
+import React, { useState, useEffect } from "react";
+import WaitlistModal from "./components/WaitlistModal";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import MockupReveal from "./components/MockupReveal";
+import PrepSystem from "./components/PrepSystem";
+import Pricing from "./components/Pricing";
+import CTA from "./components/CTA";
+import Footer from "./components/Footer";
 
 interface WaitlistSession {
   email: string;
   queueNumber: number;
-}
-
-const Logo = ({ className }: { className?: string }) => (
-  <svg 
-    width="206" 
-    height="63" 
-    viewBox="0 0 206 63" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
-    <path 
-      d="M33.75 40.391V21.3807C33.75 19.4907 32.2065 18.089 30.3323 18.2465H30.2378C26.9303 18.53 21.906 20.2152 19.1025 21.9792L18.8348 22.1525C18.378 22.436 17.622 22.436 17.1653 22.1525L16.7715 21.9162C13.968 20.168 8.9595 18.4985 5.652 18.2307C3.77775 18.0732 2.25 19.4907 2.25 21.365V40.391C2.25 41.903 3.4785 43.3205 4.9905 43.5095L5.44725 43.5725C8.865 44.0292 14.1413 45.7617 17.1653 47.4155L17.2283 47.447C17.6535 47.6832 18.3308 47.6832 18.7403 47.447C21.7643 45.7775 27.0563 44.0292 30.4898 43.5725L31.0095 43.5095C32.5215 43.3205 33.75 41.903 33.75 40.391Z" 
-      stroke="#0044FF" 
-      strokeWidth="4.5" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-      fill="none"
-    />
-    <path 
-      d="M18 22.6719V46.2969" 
-      stroke="#0044FF" 
-      strokeWidth="4.5" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    />
-    <path 
-      d="M11.5937 20.7627C9.39262 19.4599 7.7031 17.5214 6.77996 15.2397C5.85682 12.9579 5.75011 10.4567 6.47594 8.11309C7.20176 5.76952 8.72076 3.71076 10.8038 2.24732C12.8869 0.783879 15.421 -0.00487374 18.0241 2.26448e-05C20.6271 0.00491903 23.1579 0.803199 25.2347 2.27446C27.3114 3.74573 28.8216 5.81019 29.5374 8.15647C30.2532 10.5027 30.1358 13.0036 29.2029 15.2819C28.27 17.5601 26.5722 19.4922 24.3655 20.7867L22.4578 17.9286C24.0031 17.0221 25.1921 15.669 25.8454 14.0735C26.4988 12.4781 26.581 10.7267 26.0797 9.08358C25.5784 7.44046 24.5209 5.99471 23.0665 4.96437C21.6121 3.93404 19.8398 3.375 18.0169 3.37157C16.1939 3.36814 14.4192 3.92051 12.9605 4.94536C11.5017 5.97022 10.4379 7.41198 9.92963 9.0532C9.42133 10.6944 9.49605 12.4461 10.1425 14.044C10.789 15.6419 11.9722 16.9994 13.5136 17.9118L11.5937 20.7627Z" 
-      fill="#0044FF"
-    />
-    <g fill="currentColor">
-      <path d="M92.25 25.5H86.25L86.2896 25.5792C86.5102 26.0203 86.625 26.5068 86.625 27C86.625 27.4932 86.5102 27.9797 86.2896 28.4208L86.25 28.4999H92.25L92.2104 28.4208C91.9898 27.9797 91.875 27.4932 91.875 27C91.875 26.5068 91.9898 26.0203 92.2104 25.5792L92.25 25.5Z"/>
-      <path d="M76.8677 28.8501C76.8677 25.4175 76.3667 22.4673 75.3647 19.9995C74.3813 17.5317 72.999 15.6299 71.2178 14.2939C69.4551 12.958 67.3955 12.29 65.0391 12.29C62.7012 12.29 60.6323 12.9302 58.8325 14.2104C57.0327 15.4907 55.6226 17.3091 54.6021 19.6655C53.5815 22.022 53.0713 24.8052 53.0713 28.0151C53.0713 31.3921 53.563 34.3237 54.5464 36.8101C55.5483 39.2964 56.9399 41.2168 58.7212 42.5713C60.521 43.9072 62.627 44.5752 65.0391 44.5752C67.3213 44.5752 69.353 43.9536 71.1343 42.7104C72.9155 41.4487 74.3164 39.6489 75.3369 37.311C76.3574 34.9546 76.8677 32.1343 76.8677 28.8501ZM82.2949 28.1543C82.2949 31.4941 81.8032 34.4814 80.8198 37.1162C79.8364 39.751 78.5098 41.9868 76.8398 43.8237C75.1885 45.6421 73.3145 47.0337 71.2178 47.9985C69.1396 48.9634 66.9873 49.4458 64.7607 49.4458C62.5156 49.4458 60.3633 48.9912 58.3037 48.082C56.2627 47.1729 54.4351 45.8369 52.8208 44.0742C51.2251 42.3115 49.9634 40.1499 49.0356 37.5894C48.1079 35.0103 47.644 32.0508 47.644 28.7109C47.644 25.3711 48.1357 22.3931 49.1191 19.7769C50.1025 17.1421 51.4292 14.9062 53.0991 13.0693C54.7876 11.2324 56.6802 9.83154 58.7769 8.8667C60.8921 7.90186 63.0723 7.41943 65.3174 7.41943C67.5254 7.41943 69.6406 7.87402 71.6631 8.7832C73.7041 9.69238 75.5225 11.0283 77.1182 12.791C78.7139 14.5537 79.9756 16.7246 80.9033 19.3037C81.8311 21.8643 82.2949 24.8145 82.2949 28.1543ZM102.697 33.0249V36.6431C102.697 39.3892 102.715 41.8198 102.753 43.9351C102.808 46.0503 102.929 47.6553 103.114 48.75H96.9913C97.1954 47.6367 97.3161 46.0317 97.3532 43.9351C97.3903 41.8198 97.4088 39.3892 97.4088 36.6431V20.918C97.4088 18.1904 97.3903 15.6577 97.3532 13.3198C97.3161 10.9634 97.1954 9.22852 96.9913 8.11523C96.9913 8.11523 97.5665 8.09668 98.7169 8.05957C99.8673 8.00391 101.342 7.95752 103.142 7.92041C104.961 7.86475 106.853 7.83691 108.82 7.83691C113.31 7.83691 116.891 8.8667 119.563 10.9263C122.235 12.9673 123.571 16.0195 123.571 20.083C123.571 24.165 122.254 27.3936 119.619 29.7686C117.003 32.125 113.403 33.3032 108.82 33.3032C107.799 33.3032 106.751 33.2847 105.675 33.2476C104.599 33.1919 103.606 33.1177 102.697 33.0249ZM102.697 12.4292V28.7109C103.569 28.8223 104.478 28.8965 105.424 28.9336C106.371 28.9707 107.363 28.9893 108.402 28.9893C111 28.9893 113.013 28.6089 114.442 27.8481C115.871 27.0688 116.863 26.0483 117.42 24.7866C117.995 23.5063 118.283 22.124 118.283 20.6396C118.283 19.1553 117.986 17.7822 117.392 16.5205C116.798 15.2402 115.787 14.2197 114.359 13.459C112.948 12.6797 111.009 12.29 108.542 12.29C107.243 12.29 106.176 12.3086 105.341 12.3457C104.525 12.3643 103.643 12.3921 102.697 12.4292ZM131.868 48.75H126.719V31.6333C126.719 28.9058 126.562 26.5864 126.246 24.6753C125.949 22.7642 125.643 21.3262 125.328 20.3613H130.337C130.486 20.751 130.625 21.2891 130.755 21.9756C130.903 22.6621 131.043 23.3579 131.172 24.063C131.302 24.7681 131.395 25.3433 131.451 25.7886C132.805 23.8589 134.336 22.3838 136.043 21.3633C137.75 20.3242 139.234 19.8047 140.496 19.8047C142.055 19.8047 143.298 20.25 144.226 21.1406C145.172 22.0127 145.849 23.1538 146.257 24.564C146.684 25.9741 146.898 27.4956 146.898 29.1284L142.444 30.1025C142.444 28.7109 142.185 27.4863 141.665 26.4287C141.146 25.3525 140.338 24.8145 139.244 24.8145C138.464 24.8145 137.574 25.2041 136.572 25.9834C135.588 26.7441 134.661 27.7275 133.789 28.9336C132.917 30.1211 132.276 31.3457 131.868 32.6074V48.75ZM171.282 35.2515H150.575V31.355H166.3C166.3 28.9614 165.641 27.1338 164.324 25.8721C163.025 24.6104 161.364 23.9795 159.342 23.9795C156.911 23.9795 155 24.8423 153.608 26.5679C152.235 28.2935 151.549 31.0024 151.549 34.6948C151.549 38.1274 152.384 40.6787 154.054 42.3486C155.742 44.0186 157.876 44.8535 160.455 44.8535C162.255 44.8535 164.018 44.6494 165.743 44.2412C167.487 43.8145 169.204 43.0908 170.892 42.0703L171.449 46.6626C169.482 47.6831 167.58 48.3975 165.743 48.8057C163.906 49.2324 161.912 49.4458 159.759 49.4458C157.403 49.4458 155.204 48.8984 153.163 47.8037C151.141 46.709 149.508 45.0854 148.265 42.9331C147.021 40.7808 146.4 38.1274 146.4 34.9731C146.4 31.8931 146.938 29.2212 148.014 26.9575C149.109 24.6938 150.649 22.9404 152.634 21.6973C154.638 20.4355 157.013 19.8047 159.759 19.8047C162.06 19.8047 163.953 20.1943 165.437 20.9736C166.94 21.7529 168.118 22.792 168.972 24.0908C169.825 25.3896 170.428 26.8276 170.781 28.4048C171.133 29.9634 171.31 31.522 171.31 33.0806C171.31 33.3218 171.31 33.6836 171.31 34.166C171.31 34.6299 171.3 34.9917 171.282 35.2515ZM173.762 20.3613H178.772C178.976 20.8252 179.18 21.5024 179.384 22.3931C179.588 23.2837 179.755 24.3691 179.885 25.6494C181.203 23.9238 182.733 22.5229 184.477 21.4468C186.222 20.3521 188.123 19.8047 190.183 19.8047C192.298 19.8047 194.144 20.4077 195.722 21.6138C197.317 22.8198 198.551 24.4805 199.423 26.5957C200.314 28.7109 200.759 31.1323 200.759 33.8599C200.759 37.0327 200.184 39.7881 199.034 42.126C197.902 44.4453 196.38 46.2451 194.469 47.5254C192.558 48.8057 190.433 49.4458 188.096 49.4458C186.611 49.4458 185.266 49.1675 184.06 48.6108C182.872 48.0542 181.62 47.312 180.303 46.3843V52.9248C180.303 55.1514 180.358 56.9883 180.47 58.4355C180.581 59.8828 180.757 61.2002 180.998 62.3877H175.154C175.154 62.3877 175.154 61.8496 175.154 60.7734C175.154 59.7158 175.154 58.3149 175.154 56.5708C175.154 54.8267 175.154 52.9155 175.154 50.8374C175.154 48.7778 175.154 46.7275 175.154 44.6865C175.154 42.627 175.154 40.7622 175.154 39.0923C175.154 37.4224 175.154 36.1421 175.154 35.2515C175.154 31.7817 175.079 28.8315 174.931 26.4009C174.783 23.9517 174.393 21.9385 173.762 20.3613ZM180.303 32.7466V41.5137C181.583 42.4043 182.641 43.0908 183.475 43.5732C184.31 44.0557 185.071 44.3896 185.758 44.5752C186.463 44.7607 187.242 44.8535 188.096 44.8535C189.413 44.8535 190.638 44.4453 191.769 43.6289C192.92 42.8125 193.848 41.6436 194.553 40.1221C195.258 38.6006 195.61 36.7915 195.61 34.6948C195.61 31.5962 195.044 29.1284 193.912 27.2915C192.781 25.4546 191.213 24.5361 189.209 24.5361C187.613 24.5361 185.99 25.2319 184.338 26.6235C182.687 28.0151 181.342 30.0562 180.303 32.7466Z"/>
-    </g>
-  </svg>
-);
-
-const words = ["Pass", "Practice", "Prep"];
-
-function RotatingWords({ index }: { index: number }) {
-  return (
-    <motion.span layout className="rotating-container">
-      <motion.span layout className="rotating-spacer" aria-hidden="true">
-        {words[index]}
-      </motion.span>
-      <AnimatePresence initial={false} mode="popLayout">
-        <motion.span
-          key={words[index]}
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -15 }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="rotating-text"
-        >
-          {words[index]}
-        </motion.span>
-      </AnimatePresence>
-    </motion.span>
-  );
 }
 
 export default function App() {
@@ -85,23 +19,9 @@ export default function App() {
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [rotatingIndex, setRotatingIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setRotatingIndex((prev) => (prev + 1) % words.length);
-    }, 2500);
-    return () => clearInterval(timer);
-  }, []);
   const [sessionData, setSessionData] = useState<WaitlistSession | null>(null);
   const [copied, setCopied] = useState(false);
   const [referrals, setReferrals] = useState(0);
-
-  const mockupSectionRef = useRef<HTMLDivElement>(null);
-  const phoneImageRef = useRef<HTMLImageElement>(null);
-  const step1Ref = useRef<HTMLDivElement>(null);
-  const step2Ref = useRef<HTMLDivElement>(null);
-  const step3Ref = useRef<HTMLDivElement>(null);
 
   // Mount delay for cinematic waitlist pop up
   useEffect(() => {
@@ -128,89 +48,6 @@ export default function App() {
 
     return () => clearTimeout(timer);
   }, []);
-
-  // GSAP animation trigger for the phone mockup reveal in thirds
-  useEffect(() => {
-    if (!isLoaded) return;
-
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      // Desktop: Pinned Scroll-linked Animation
-      mm.add("(min-width: 1024px)", () => {
-        // Set initial states
-        gsap.set([step1Ref.current, step2Ref.current, step3Ref.current], { opacity: 0 });
-        gsap.set(phoneImageRef.current, {
-          clipPath: "inset(0% 0% 75% 0%)" // 1/4 visible
-        });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: mockupSectionRef.current,
-            start: "top top",
-            end: "+=300%",
-            pin: true,
-            scrub: 0.5,
-            anticipatePin: 1
-          }
-        });
-
-        // Step 1: Reveal second fourth (50% visible, inset 50%) & Step 1 appears
-        tl.to(phoneImageRef.current, {
-          clipPath: "inset(0% 0% 50% 0%)",
-          ease: "none",
-          duration: 1
-        })
-        .to(step1Ref.current, { opacity: 1, color: "#0044FF", duration: 0.3 }, "<")
-
-        // Step 2: Reveal third fourth (75% visible, inset 25%) & Step 2 appears
-        .to(phoneImageRef.current, {
-          clipPath: "inset(0% 0% 25% 0%)",
-          ease: "none",
-          duration: 1
-        })
-        .to(step2Ref.current, { opacity: 1, color: "#0044FF", duration: 0.3 }, "<")
-        .to(step1Ref.current, { opacity: 0.25, color: "#111111", duration: 0.3 }, "<")
-
-        // Step 3: Reveal bottom fourth (100% visible, inset 0%) & Step 3 appears
-        .to(phoneImageRef.current, {
-          clipPath: "inset(0% 0% 0% 0%)",
-          ease: "none",
-          duration: 1
-        })
-        .to(step3Ref.current, { opacity: 1, color: "#0044FF", duration: 0.3 }, "<")
-        .to(step2Ref.current, { opacity: 0.25, color: "#111111", duration: 0.3 }, "<");
-      });
-
-      // Mobile: Standard scroll-triggered opacity fades
-      mm.add("(max-width: 1023px)", () => {
-        gsap.set(phoneImageRef.current, {
-          clipPath: "inset(0% 0% 0% 0%)"
-        });
-
-        const steps = [step1Ref, step2Ref, step3Ref];
-        steps.forEach((ref) => {
-          if (ref.current) {
-            gsap.fromTo(ref.current, 
-              { opacity: 0.3, y: 15 },
-              {
-                opacity: 1,
-                y: 0,
-                scrollTrigger: {
-                  trigger: ref.current,
-                  start: "top 80%",
-                  end: "bottom 60%",
-                  toggleActions: "play none none reverse"
-                }
-              }
-            );
-          }
-        });
-      });
-    }, mockupSectionRef);
-
-    return () => ctx.revert();
-  }, [isLoaded]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -267,292 +104,47 @@ export default function App() {
     window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
   };
 
-  const handleExplore = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setShowWaitlist(false);
-    const el = document.getElementById("system");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <main className="page">
       {/* Waitlist Modal First Screen overlay */}
-      <AnimatePresence>
-        {showWaitlist && isLoaded && (
-          <div className="modal-layer">
-            <motion.section 
-              initial={{ opacity: 0, y: 28, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.96 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="waitlist-card"
-            >
-              {!submitted ? (
-                <>
-                  <div className="brand-pill">O/PREP EARLY ACCESS</div>
-
-                  <div className="waitlist-copy">
-                    <h1>A cracked, better way to study.</h1>
-                    <p>Enter your email for early access.</p>
-                  </div>
-
-                  <form className="waitlist-form" onSubmit={handleSubmit}>
-                    <input
-                      type="email"
-                      required
-                      placeholder="buildpcbs@gmail.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-
-                    <button type="submit" disabled={submitting}>
-                      {submitting ? "Joining..." : "Join Waitlist"}
-                    </button>
-                  </form>
-
-                  <div className="explore-dismiss" style={{ textAlign: "center", marginTop: "-4px" }}>
-                    <span 
-                      onClick={() => setShowWaitlist(false)} 
-                      style={{ fontSize: "12px", color: "var(--color-blue-brand)", cursor: "pointer", fontWeight: 600 }}
-                    >
-                      Explore Preview First →
-                    </span>
-                  </div>
-                </>
-              ) : (
-                <div className="success-state">
-                  <div className="brand-pill">YOU’RE IN</div>
-                  
-                  <div className="waitlist-copy">
-                    <h1>Welcome to O/Prep.</h1>
-                    <p>We’ll send early access to your email when the beta opens.</p>
-                  </div>
-
-                  <div className="ticket-wrapper">
-                    <div className="ticket-header">
-                      <span>O/PREP BETA TICKET</span>
-                      <span style={{ color: "var(--color-success-brand)", fontWeight: 700 }}>✓ VERIFIED</span>
-                    </div>
-                    <div className="ticket-row">
-                      <span className="ticket-label">Email</span>
-                      <span className="ticket-value" style={{ maxWidth: "160px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                        {sessionData?.email}
-                      </span>
-                    </div>
-                    <div className="ticket-row">
-                      <span className="ticket-label">Queue Position</span>
-                      <span className="ticket-value highlight">#{sessionData?.queueNumber}</span>
-                    </div>
-                  </div>
-
-                  <div className="viral-sharing">
-                    <p className="viral-title">Want to skip the line?</p>
-                    <p className="viral-text">Invite 3 friends to get instant beta priority.</p>
-                    
-                    <div className="progress-bar-wrapper">
-                      <div className="progress-text">
-                        <span>{referrals} of 3 friends invited</span>
-                        <span style={{ fontWeight: 600, color: "var(--color-blue-brand)" }}>
-                          {referrals === 0 && "-180 spots next"}
-                          {referrals === 1 && "-240 spots next"}
-                          {referrals === 2 && "-400 spots next"}
-                          {referrals >= 3 && "VIP ACCESS UNLOCKED"}
-                        </span>
-                      </div>
-                      <div className="progress-bar-bg">
-                        <div className="progress-bar-fill" style={{ width: `${Math.min(100, (referrals / 3) * 100)}%` }} />
-                      </div>
-                    </div>
-
-                    <div className="share-buttons">
-                      <button onClick={handleWhatsAppShare} className="btn-share-whatsapp">
-                        <Share2 className="w-3.5 h-3.5" />
-                        WhatsApp
-                      </button>
-                      <button onClick={handleCopyLink} className="btn-share-copy">
-                        {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                        {copied ? "Copied!" : "Copy Link"}
-                      </button>
-                    </div>
-                  </div>
-
-                  <button onClick={() => setShowWaitlist(false)} className="btn-primary">
-                    Explore Preview
-                  </button>
-                </div>
-              )}
-            </motion.section>
-          </div>
-        )}
-      </AnimatePresence>
+      <WaitlistModal
+        showWaitlist={showWaitlist}
+        setShowWaitlist={setShowWaitlist}
+        isLoaded={isLoaded}
+        email={email}
+        setEmail={setEmail}
+        submitting={submitting}
+        submitted={submitted}
+        sessionData={sessionData}
+        copied={copied}
+        referrals={referrals}
+        handleSubmit={handleSubmit}
+        handleWhatsAppShare={handleWhatsAppShare}
+        handleCopyLink={handleCopyLink}
+      />
 
       {/* Nav Section */}
-      <nav className="nav">
-        <div className="logo-container">
-          <Logo className="nav-logo" />
-        </div>
-
-        <button onClick={() => setShowWaitlist(true)}>Join Waitlist</button>
-      </nav>
+      <Navbar setShowWaitlist={setShowWaitlist} />
 
       {/* Main content wrapper with blur class when waitlist overlay is visible */}
       <div className={showWaitlist ? "main-content blurred" : "main-content"}>
         {/* Hero Section */}
-        <section className="hero">
-          <div className="hero-badge"><div className="hero-badge-inner">Mobile app coming soon</div></div>
-
-          <motion.h1 layout>
-            <RotatingWords index={rotatingIndex} />
-            <motion.span layout>every exam.</motion.span>
-          </motion.h1>
-
-          <p>
-            O/Prep helps Nigerian students prepare smarter with guided practice, 
-            peer accountability, and personalised exam support.
-          </p>
-
-          <div className="hero-actions">
-            <button onClick={() => setShowWaitlist(true)}>Join Waitlist</button>
-            <a href="#system" onClick={handleExplore}>Explore Dashboard</a>
-          </div>
-        </section>
+        <Hero setShowWaitlist={setShowWaitlist} />
 
         {/* GSAP Phone Mockup Reveal Section */}
-        <section id="features" ref={mockupSectionRef} className="mockup-reveal-section">
-          <div className="mockup-sticky-container">
-            <div className="mockup-container">
-              
-              {/* Left Column of Steps */}
-              <div className="mockup-text-col-left">
-                <div ref={step1Ref} className="mockup-step">
-                  <span className="step-number">STEP 01</span>
-                  <h3>Plan with structure.</h3>
-                  <p>Define your target score, exam date, and daily study windows. O/Prep builds a custom plan tailored to your timeline.</p>
-                </div>
-                <div ref={step3Ref} className="mockup-step">
-                  <span className="step-number">STEP 03</span>
-                  <h3>Review and improve.</h3>
-                  <p>Pinpoint exactly where you fail, track your weak concepts, and study smarter. Reach your target pass rate before test day.</p>
-                </div>
-              </div>
-
-              {/* Empty Middle Spacer for centered phone layout on Grid */}
-              <div className="mockup-middle-spacer" style={{ pointerEvents: "none" }}></div>
-
-              {/* Right Column of Steps */}
-              <div className="mockup-text-col-right">
-                <div ref={step2Ref} className="mockup-step">
-                  <span className="step-number">STEP 02</span>
-                  <h3>Practice every exam.</h3>
-                  <p>Access thousands of real exam questions with comprehensive solutions. Learn by doing, not just reading.</p>
-                </div>
-              </div>
-
-              {/* Absolute Centered Phone */}
-              <div className="mockup-phone-col">
-                <div className="phone-wrapper">
-                  <img 
-                    ref={phoneImageRef} 
-                    src={OprepMockup} 
-                    alt="O/Prep App Interface" 
-                    className="phone-image-main" 
-                  />
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
+        <MockupReveal isLoaded={isLoaded} />
 
         {/* The Prep System */}
-        <section id="system" className="studio-section">
-          <p className="section-label">THE PREP SYSTEM</p>
-          <h2>Three tools, one study flow.</h2>
-
-          <div className="tool-grid">
-            <div className="tool-card">
-              <span>01</span>
-              <h3>Practice Bank</h3>
-              <p>Exam-style questions built around real prep behaviour.</p>
-            </div>
-
-            <div className="tool-card">
-              <span>02</span>
-              <h3>Smart Study Plan</h3>
-              <p>Turn your exam date into a clear daily preparation plan.</p>
-            </div>
-
-            <div className="tool-card">
-              <span>03</span>
-              <h3>Peer Accountability</h3>
-              <p>Stay consistent with streaks, groups, and visible progress.</p>
-            </div>
-          </div>
-        </section>
+        <PrepSystem />
 
         {/* Pricing / Access Tiers */}
-        <section id="pricing" className="pricing-section">
-          <p className="section-label">EARLY ACCESS</p>
-          <h2>Simple access for serious students.</h2>
-
-          <div className="pricing-grid">
-            <div className="price-card">
-              <h3>Free</h3>
-              <p>Join the waitlist</p>
-              <strong>₦0</strong>
-              <ul>
-                <li>Early launch updates</li>
-                <li>Beta access invite</li>
-                <li>Community access</li>
-              </ul>
-              <button onClick={() => setShowWaitlist(true)}>Join Waitlist</button>
-            </div>
-
-            <div className="price-card featured">
-              <div className="popular">MOST POPULAR</div>
-              <h3>Beta</h3>
-              <p>For early students</p>
-              <strong>Coming soon</strong>
-              <ul>
-                <li>Practice questions</li>
-                <li>Study tracking</li>
-                <li>Accountability groups</li>
-              </ul>
-              <button onClick={() => setShowWaitlist(true)}>Get Early Access</button>
-            </div>
-
-            <div className="price-card">
-              <h3>Pro</h3>
-              <p>For serious exam prep</p>
-              <strong>Coming soon</strong>
-              <ul>
-                <li>Advanced analytics</li>
-                <li>Mock exam mode</li>
-                <li>Priority support</li>
-              </ul>
-              <button onClick={() => setShowWaitlist(true)}>Notify Me</button>
-            </div>
-          </div>
-        </section>
+        <Pricing setShowWaitlist={setShowWaitlist} />
 
         {/* CTA Section */}
-        <section className="cta-section" onClick={() => setShowWaitlist(true)}>
-          <div className="cta-banner-wrapper">
-            <img src={OPrepBanner} alt="The Prep way to prep. Click to join." className="cta-banner-img" />
-          </div>
-        </section>
+        <CTA setShowWaitlist={setShowWaitlist} />
 
         {/* Footer */}
-        <footer className="footer">
-          <div className="footer-content">
-            <div className="footer-logo-container">
-              <Logo className="footer-logo" />
-            </div>
-            <p>© 2026 O/Prep. Built for ambitious exam takers.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </main>
   );
