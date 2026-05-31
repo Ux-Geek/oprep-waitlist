@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Geist:wght@100..900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "DM Sans", "Inter", sans-serif;
+  --font-sans: "Geist", "Inter", sans-serif;
+  
+  --color-blue-brand: #0044FF;
+  --color-blue-brand-hover: #0035CC;
+  --color-bg-brand: #FFFFFF;
+  --color-bg-brand-secondary: #F7F7F8;
+  --color-text-brand-primary: #1A1A1A;
+  --color-text-brand-secondary: #666666;
+  --color-text-brand-tertiary: #A1A1A1;
+  --color-border-brand: #E8E8E8;
+  --color-success-brand: #14AE5C;
+}
+
+/* Custom grid patterns and premium background styles */
+.grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(0, 68, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 68, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dot-bg {
+  background-image: radial-gradient(rgba(0, 68, 255, 0.06) 1.2px, transparent 1.2px);
+  background-size: 16px 16px;
+}
+
+/* Custom styles for high-end look */
+input:focus {
+  outline: none;
+}

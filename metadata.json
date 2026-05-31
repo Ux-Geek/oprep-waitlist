@@ -1,0 +1,6 @@
+{
+  "name": "OPrep",
+  "description": "The premium exam preparation app for Nigerian students actually deserve. Early access invitation for WAEC, JAMB, IELTS, and SAT.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
