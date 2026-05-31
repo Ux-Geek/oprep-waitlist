@@ -510,6 +510,14 @@ body {
   white-space: nowrap;
 }
 
+.hero-h1-addon {
+  height: 0.9em;
+  width: auto;
+  align-self: center;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .hero p {
   max-width: 540px;
   margin: 24px auto 0;
@@ -980,29 +988,7 @@ body {
   box-shadow: 0 35px 80px rgba(0, 68, 255, 0.2);
 }
 
-.cta-banner-wrapper::after {
-  content: "Join Waitlist →";
-  position: absolute;
-  left: 50%;
-  top: 70%;
-  transform: translate(-50%, -50%);
-  background: #ffffff;
-  color: var(--color-blue-brand);
-  padding: 12px 28px;
-  border-radius: 999px;
-  font-size: 15px;
-  font-weight: 600;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  letter-spacing: -0.01em;
-}
 
-.cta-banner-wrapper:hover::after {
-  opacity: 1;
-  top: 66%;
-}
 
 .cta-banner-img {
   width: 100%;

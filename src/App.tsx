@@ -10,6 +10,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import OprepMockup from "./assets/Oprep Mockup.png";
 import OPrepBanner from "./assets/O-Prep Banner 1.png";
+import Group23 from "./assets/Group 23.png";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -56,16 +57,7 @@ const Logo = ({ className }: { className?: string }) => (
 
 const words = ["Pass", "Practice", "Prep"];
 
-function RotatingWords() {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % words.length);
-    }, 2500);
-    return () => clearInterval(timer);
-  }, []);
-
+function RotatingWords({ index }: { index: number }) {
   return (
     <motion.span layout className="rotating-container">
       <motion.span layout className="rotating-spacer" aria-hidden="true">
@@ -93,6 +85,14 @@ export default function App() {
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [rotatingIndex, setRotatingIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setRotatingIndex((prev) => (prev + 1) % words.length);
+    }, 2500);
+    return () => clearInterval(timer);
+  }, []);
   const [sessionData, setSessionData] = useState<WaitlistSession | null>(null);
   const [copied, setCopied] = useState(false);
   const [referrals, setReferrals] = useState(0);
@@ -410,8 +410,22 @@ export default function App() {
           <div className="hero-badge"><div className="hero-badge-inner">Mobile app coming soon</div></div>
 
           <motion.h1 layout>
-            <RotatingWords />
+            <RotatingWords index={rotatingIndex} />
             <motion.span layout>every exam.</motion.span>
+            <AnimatePresence>
+              {words[rotatingIndex] === "Practice" && (
+                <motion.img
+                  layout
+                  initial={{ opacity: 0, scale: 0.8, x: -10 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, x: -10 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  src={Group23}
+                  alt="Group 23"
+                  className="hero-h1-addon"
+                />
+              )}
+            </AnimatePresence>
           </motion.h1>
 
           <p>
