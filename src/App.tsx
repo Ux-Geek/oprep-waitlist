@@ -9,6 +9,7 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import OprepMockup from "./assets/Oprep Mockup.png";
+import OPrepBanner from "./assets/O-Prep Banner 1.png";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -498,6 +499,13 @@ export default function App() {
               </ul>
               <button onClick={() => setShowWaitlist(true)}>Notify Me</button>
             </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="cta-section" onClick={() => setShowWaitlist(true)}>
+          <div className="cta-banner-wrapper">
+            <img src={OPrepBanner} alt="The Prep way to prep. Click to join." className="cta-banner-img" />
           </div>
         </section>
 

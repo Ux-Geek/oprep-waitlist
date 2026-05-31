@@ -830,3 +830,66 @@ body {
     flex-direction: row;
   }
 }
+
+/* CTA SECTION */
+.cta-section {
+  padding: 100px 22px 40px;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-banner-wrapper {
+  width: 100%;
+  max-width: 1120px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 68, 255, 0.08);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+}
+
+.cta-banner-wrapper:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: 0 35px 80px rgba(0, 68, 255, 0.2);
+}
+
+.cta-banner-wrapper::after {
+  content: "Join Waitlist →";
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  color: var(--color-blue-brand);
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  letter-spacing: -0.01em;
+}
+
+.cta-banner-wrapper:hover::after {
+  opacity: 1;
+  top: 66%;
+}
+
+.cta-banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .cta-section {
+    padding: 60px 16px 20px;
+  }
+}
