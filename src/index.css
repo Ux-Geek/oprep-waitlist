@@ -76,7 +76,7 @@ body {
 .nav-logo {
   height: 26px;
   width: auto;
-  color: #111111;
+  color: var(--color-blue-brand);
   display: block;
 }
 
@@ -915,7 +915,7 @@ body {
 .footer-logo {
   height: 30px;
   width: auto;
-  color: #111111;
+  color: var(--color-blue-brand);
   display: block;
 }
 
