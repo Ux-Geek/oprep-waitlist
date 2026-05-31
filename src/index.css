@@ -43,8 +43,7 @@ body {
 }
 
 .main-content.blurred .hero h1 {
-  opacity: 0;
-  visibility: hidden;
+  opacity: 0.3;
 }
 
 /* NAV */
@@ -62,7 +61,6 @@ body {
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(240, 240, 240, 0.8);
 }
 
 .logo-container {
@@ -481,7 +479,35 @@ body {
   letter-spacing: 0.5px;
   color: #111111;
   font-weight: 500;
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: 0.22em;
+  row-gap: 0.1em;
+}
+
+.rotating-container {
+  position: relative;
+  display: inline-grid;
+  justify-items: center;
+  align-items: baseline;
+}
+
+.rotating-spacer {
+  visibility: hidden;
+  grid-area: 1/1;
+  font-weight: inherit;
+  font-family: inherit;
+}
+
+.rotating-text {
+  grid-area: 1/1;
+  color: var(--color-blue-brand);
+  font-weight: inherit;
+  font-family: inherit;
+  white-space: nowrap;
 }
 
 .hero p {
@@ -543,8 +569,6 @@ body {
   padding: 0;
   margin: 0;
   z-index: 2;
-  border-top: 1px solid #f0f0f0;
-  border-bottom: 1px solid #f0f0f0;
 }
 
 .mockup-sticky-container {
@@ -553,23 +577,27 @@ body {
 }
 
 .mockup-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: auto;
   max-width: 1120px;
   margin: 0 auto;
-  padding: 100px 24px;
-  gap: 60px;
+  padding: 60px 24px;
+  gap: 40px;
   position: relative;
 }
 
-.mockup-text-col {
+.mockup-text-col-left,
+.mockup-text-col-right {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 80px;
+  gap: 40px;
   position: relative;
   z-index: 3;
+}
+
+.mockup-middle-spacer {
+  display: none;
 }
 
 .mockup-step {
@@ -635,28 +663,76 @@ body {
 
 @media (min-width: 1024px) {
   .mockup-container {
-    grid-template-columns: 1.2fr 1fr;
-    gap: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    min-height: 100vh;
+    align-items: center;
+    position: relative;
   }
-  
+
+  .mockup-middle-spacer {
+    display: block;
+    height: 100%;
+  }
+
+  .mockup-text-col-left {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    text-align: right;
+  }
+
+  /* Make step borders on the left side align to the right */
+  .mockup-text-col-left .mockup-step {
+    padding-right: 20px;
+    padding-left: 0;
+    border-right: 2px solid #eaeaea;
+    border-left: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .mockup-text-col-left .mockup-step p {
+    text-align: right;
+  }
+
+  .mockup-text-col-right {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    text-align: left;
+  }
+
+  .mockup-text-col-right .mockup-step {
+    padding-left: 20px;
+    border-left: 2px solid #eaeaea;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mockup-text-col-right .mockup-step p {
+    text-align: left;
+  }
+
   .mockup-phone-col {
     position: absolute;
-    right: 24px;
-    top: 0;
-    height: 100vh;
-    width: 45%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
   }
-  
+
   .phone-wrapper {
     width: 320px;
     height: 640px;
-  }
-  
-  .mockup-step {
-    border-left: 2px solid #eaeaea;
   }
 }
 

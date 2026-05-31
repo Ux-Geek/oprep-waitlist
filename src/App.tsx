@@ -54,6 +54,39 @@ const Logo = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const words = ["Pass", "Practice", "Prep"];
+
+function RotatingWords() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % words.length);
+    }, 2500);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <motion.span layout className="rotating-container">
+      <motion.span layout className="rotating-spacer" aria-hidden="true">
+        {words[index]}
+      </motion.span>
+      <AnimatePresence initial={false} mode="popLayout">
+        <motion.span
+          key={words[index]}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -15 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="rotating-text"
+        >
+          {words[index]}
+        </motion.span>
+      </AnimatePresence>
+    </motion.span>
+  );
+}
+
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showWaitlist, setShowWaitlist] = useState(true);
@@ -106,10 +139,9 @@ export default function App() {
       // Desktop: Pinned Scroll-linked Animation
       mm.add("(min-width: 1024px)", () => {
         // Set initial states
-        gsap.set([step2Ref.current, step3Ref.current], { opacity: 0.25 });
-        gsap.set(step1Ref.current, { opacity: 1, color: "#0044FF" });
+        gsap.set([step1Ref.current, step2Ref.current, step3Ref.current], { opacity: 0 });
         gsap.set(phoneImageRef.current, {
-          clipPath: "inset(0% 0% 100% 0%)"
+          clipPath: "inset(0% 0% 75% 0%)" // 1/4 visible
         });
 
         const tl = gsap.timeline({
@@ -123,24 +155,24 @@ export default function App() {
           }
         });
 
-        // Step 1: Reveal first third of phone (Plan)
+        // Step 1: Reveal second fourth (50% visible, inset 50%) & Step 1 appears
         tl.to(phoneImageRef.current, {
-          clipPath: "inset(0% 0% 66.6% 0%)",
+          clipPath: "inset(0% 0% 50% 0%)",
           ease: "none",
           duration: 1
         })
         .to(step1Ref.current, { opacity: 1, color: "#0044FF", duration: 0.3 }, "<")
 
-        // Step 2: Reveal middle third of phone (Practice)
+        // Step 2: Reveal third fourth (75% visible, inset 25%) & Step 2 appears
         .to(phoneImageRef.current, {
-          clipPath: "inset(0% 0% 33.3% 0%)",
+          clipPath: "inset(0% 0% 25% 0%)",
           ease: "none",
           duration: 1
         })
         .to(step2Ref.current, { opacity: 1, color: "#0044FF", duration: 0.3 }, "<")
         .to(step1Ref.current, { opacity: 0.25, color: "#111111", duration: 0.3 }, "<")
 
-        // Step 3: Reveal bottom third of phone (Pass)
+        // Step 3: Reveal bottom fourth (100% visible, inset 0%) & Step 3 appears
         .to(phoneImageRef.current, {
           clipPath: "inset(0% 0% 0% 0%)",
           ease: "none",
@@ -377,11 +409,10 @@ export default function App() {
         <section className="hero">
           <div className="hero-badge"><div className="hero-badge-inner">Mobile app coming soon</div></div>
 
-          <h1>
-            Pass every exam. <br />
-            Practice every exam. <br />
-            Prep every exam.
-          </h1>
+          <motion.h1 layout>
+            <RotatingWords />
+            <motion.span layout>every exam.</motion.span>
+          </motion.h1>
 
           <p>
             O/Prep helps Nigerian students prepare smarter with guided practice, 
@@ -399,16 +430,12 @@ export default function App() {
           <div className="mockup-sticky-container">
             <div className="mockup-container">
               
-              <div className="mockup-text-col">
+              {/* Left Column of Steps */}
+              <div className="mockup-text-col-left">
                 <div ref={step1Ref} className="mockup-step">
                   <span className="step-number">STEP 01</span>
                   <h3>Plan with structure.</h3>
                   <p>Define your target score, exam date, and daily study windows. O/Prep builds a custom plan tailored to your timeline.</p>
-                </div>
-                <div ref={step2Ref} className="mockup-step">
-                  <span className="step-number">STEP 02</span>
-                  <h3>Practice every exam.</h3>
-                  <p>Access thousands of real exam questions with comprehensive solutions. Learn by doing, not just reading.</p>
                 </div>
                 <div ref={step3Ref} className="mockup-step">
                   <span className="step-number">STEP 03</span>
@@ -417,6 +444,19 @@ export default function App() {
                 </div>
               </div>
 
+              {/* Empty Middle Spacer for centered phone layout on Grid */}
+              <div className="mockup-middle-spacer" style={{ pointerEvents: "none" }}></div>
+
+              {/* Right Column of Steps */}
+              <div className="mockup-text-col-right">
+                <div ref={step2Ref} className="mockup-step">
+                  <span className="step-number">STEP 02</span>
+                  <h3>Practice every exam.</h3>
+                  <p>Access thousands of real exam questions with comprehensive solutions. Learn by doing, not just reading.</p>
+                </div>
+              </div>
+
+              {/* Absolute Centered Phone */}
               <div className="mockup-phone-col">
                 <div className="phone-wrapper">
                   <img 
