@@ -50,7 +50,7 @@ body {
 .nav {
   width: calc(100% - 32px);
   max-width: 450px;
-  height: 80px;
+  height: 70px;
   padding: 0 24px;
   display: flex;
   align-items: center;
@@ -74,7 +74,7 @@ body {
 }
 
 .nav-logo {
-  height: 20px;
+  height: 26px;
   width: auto;
   color: #111111;
   display: block;
@@ -414,7 +414,7 @@ body {
 
 /* HERO */
 .hero {
-  padding: 160px 22px 80px;
+  padding: 200px 22px 80px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -486,12 +486,13 @@ body {
   color: #111111;
   font-weight: 500;
   transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: baseline;
   flex-wrap: wrap;
   column-gap: 0.22em;
   row-gap: 0.1em;
+  position: relative;
 }
 
 .rotating-container {
@@ -516,13 +517,7 @@ body {
   white-space: nowrap;
 }
 
-.hero-h1-addon {
-  height: 2em;
-  width: auto;
-  align-self: flex-start;
-  margin-top: -0.15em;
-  display: inline-block;
-}
+
 
 .hero p {
   max-width: 540px;
@@ -939,7 +934,7 @@ body {
   }
 
   .hero {
-    padding-top: 200px;
+    padding-top: 240px;
     padding-bottom: 120px;
   }
   
