@@ -48,9 +48,10 @@ body {
 
 /* NAV */
 .nav {
-  width: 250px;
+  width: calc(100% - 32px);
+  max-width: 450px;
   height: 80px;
-  padding: 0 18px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -516,11 +517,11 @@ body {
 }
 
 .hero-h1-addon {
-  height: 0.9em;
+  height: 2em;
   width: auto;
-  align-self: center;
+  align-self: flex-start;
+  margin-top: -0.15em;
   display: inline-block;
-  vertical-align: middle;
 }
 
 .hero p {
