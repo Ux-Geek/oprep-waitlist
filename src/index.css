@@ -52,10 +52,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 90;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(240, 240, 240, 0.8);
 }
 
 .logo-container {
@@ -64,7 +68,7 @@ body {
 }
 
 .nav-logo {
-  height: 26px;
+  height: 33px;
   width: auto;
   color: #111111;
   display: block;
@@ -413,18 +417,56 @@ body {
 }
 
 .hero-badge {
+  position: relative;
   display: inline-flex;
-  height: 30px;
+  height: 32px;
   align-items: center;
-  padding: 0 14px;
+  padding: 1px;
   border-radius: 999px;
-  background: #f5f5f7;
-  border: 1px solid #eaeaea;
-  color: var(--color-text-brand-tertiary);
-  font-size: 12px;
-  font-weight: 500;
+  overflow: hidden;
+  background: transparent;
   margin-bottom: 24px;
+  z-index: 1;
+}
+
+.hero-badge::before {
+  content: "";
+  position: absolute;
+  inset: -150%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 30%,
+    var(--color-blue-brand) 50%,
+    #53b4ff 60%,
+    transparent 80%
+  );
+  animation: rotateBorder 4s linear infinite;
+  z-index: -2;
+}
+
+.hero-badge-inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--color-text-brand-secondary);
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: -0.01em;
+  z-index: -1;
+  width: 100%;
+  white-space: nowrap;
+}
+
+@keyframes rotateBorder {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .hero h1 {
@@ -782,7 +824,7 @@ body {
 }
 
 .footer-logo {
-  height: 24px;
+  height: 30px;
   width: auto;
   color: #111111;
   display: block;
