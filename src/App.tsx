@@ -375,7 +375,7 @@ export default function App() {
       <div className={showWaitlist ? "main-content blurred" : "main-content"}>
         {/* Hero Section */}
         <section className="hero">
-          <div className="hero-badge">Built for ambitious exam takers</div>
+          <div className="hero-badge">Mobile app coming soon</div>
 
           <h1>
             Practice every exam. <br />
