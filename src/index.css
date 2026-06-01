@@ -1128,23 +1128,10 @@ body {
 
 
 
-.cta-big-wordmark {
+.cta-banner-img {
   width: 100%;
-  max-width: 320px;
   height: auto;
   display: block;
-  transform: scale(1);
-  transition: transform 0.5s ease;
-}
-
-.cta-banner-wrapper:hover .cta-big-wordmark {
-  transform: scale(1.05);
-}
-
-@media (min-width: 768px) {
-  .cta-big-wordmark {
-    max-width: 600px;
-  }
 }
 
 @media (max-width: 767px) {
