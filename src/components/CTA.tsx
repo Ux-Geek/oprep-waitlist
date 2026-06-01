@@ -1,5 +1,5 @@
 import React from "react";
-import OPrepBanner from "../assets/O-Prep Banner 1.png";
+import Logo from "./Logo";
 
 interface CTAProps {
   setShowWaitlist: (show: boolean) => void;
@@ -8,8 +8,8 @@ interface CTAProps {
 export default function CTA({ setShowWaitlist }: CTAProps) {
   return (
     <section className="cta-section" onClick={() => setShowWaitlist(true)}>
-      <div className="cta-banner-wrapper">
-        <img src={OPrepBanner} alt="The Prep way to prep. Click to join." className="cta-banner-img" />
+      <div className="cta-banner-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '120px 20px', background: 'var(--color-bg-alt)' }}>
+        <Logo className="cta-big-wordmark" />
       </div>
     </section>
   );
