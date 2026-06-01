@@ -777,13 +777,13 @@ body {
   .mockup-text-col-left,
   .mockup-text-col-right {
     position: absolute;
-    bottom: 30px;
+    top: 400px;
     left: 24px;
     right: 24px;
     height: 180px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     pointer-events: none;
     z-index: 3;
     gap: 0;
