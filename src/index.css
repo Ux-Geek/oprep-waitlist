@@ -777,13 +777,13 @@ body {
   .mockup-text-col-left,
   .mockup-text-col-right {
     position: absolute;
-    top: 440px;
+    top: 430px;
     left: 24px;
     right: 24px;
-    height: 180px;
+    height: auto;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: center;
     pointer-events: none;
     z-index: 3;
     gap: 0;
@@ -791,6 +791,7 @@ body {
 
   .mockup-step {
     position: absolute;
+    top: 0;
     width: calc(100% - 32px);
     max-width: 440px;
     text-align: center;
