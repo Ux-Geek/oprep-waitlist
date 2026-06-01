@@ -67,7 +67,8 @@ export default function MockupReveal({ isLoaded }: MockupRevealProps) {
 
       // Mobile: Pinned Scroll-linked Animation (mockup stacked before list)
       mm.add("(max-width: 1023px)", () => {
-        gsap.set([step1Ref.current, step2Ref.current, step3Ref.current], { opacity: 0 });
+        // Set initial state: opacity 0 and shifted left (-120px) to slide in from left
+        gsap.set([step1Ref.current, step2Ref.current, step3Ref.current], { opacity: 0, x: -120 });
         gsap.set(phoneImageRef.current, {
           clipPath: "inset(0% 0% 75% 0%)"
         });
@@ -88,23 +89,23 @@ export default function MockupReveal({ isLoaded }: MockupRevealProps) {
           ease: "none",
           duration: 1
         })
-        .to(step1Ref.current, { opacity: 1, color: "#0044FF", duration: 0.3 }, "<")
+        .to(step1Ref.current, { opacity: 1, x: 0, color: "#0044FF", duration: 0.4 }, "<")
 
         .to(phoneImageRef.current, {
           clipPath: "inset(0% 0% 25% 0%)",
           ease: "none",
           duration: 1
         })
-        .to(step2Ref.current, { opacity: 1, color: "#0044FF", duration: 0.3 }, "<")
-        .to(step1Ref.current, { opacity: 0, duration: 0.3 }, "<")
+        .to(step2Ref.current, { opacity: 1, x: 0, color: "#0044FF", duration: 0.4 }, "<")
+        .to(step1Ref.current, { opacity: 0, x: 120, duration: 0.4 }, "<")
 
         .to(phoneImageRef.current, {
           clipPath: "inset(0% 0% 0% 0%)",
           ease: "none",
           duration: 1
         })
-        .to(step3Ref.current, { opacity: 1, color: "#0044FF", duration: 0.3 }, "<")
-        .to(step2Ref.current, { opacity: 0, duration: 0.3 }, "<");
+        .to(step3Ref.current, { opacity: 1, x: 0, color: "#0044FF", duration: 0.4 }, "<")
+        .to(step2Ref.current, { opacity: 0, x: 120, duration: 0.4 }, "<");
       });
     }, mockupSectionRef);
 
