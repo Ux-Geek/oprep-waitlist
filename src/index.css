@@ -414,7 +414,7 @@ body {
 
 /* HERO */
 .hero {
-  padding: 200px 22px 80px;
+  padding: 200px 22px 50px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -748,9 +748,9 @@ body {
 @media (max-width: 1023px) {
   .mockup-container {
     height: 100vh;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 24px;
+    padding: 60px 24px 24px;
     gap: 0;
     overflow: hidden;
     display: flex;
@@ -764,7 +764,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 4px;
     margin-bottom: 20px;
     z-index: 2;
   }
