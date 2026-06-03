@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import WaitlistModal from "./components/WaitlistModal";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import MockupReveal from "./components/MockupReveal";
@@ -106,8 +105,8 @@ export default function App() {
 
   return (
     <main className="page">
-      {/* Waitlist Modal First Screen overlay */}
-      <WaitlistModal
+      {/* Nav Section */}
+      <Navbar
         showWaitlist={showWaitlist}
         setShowWaitlist={setShowWaitlist}
         isLoaded={isLoaded}
@@ -122,9 +121,6 @@ export default function App() {
         handleWhatsAppShare={handleWhatsAppShare}
         handleCopyLink={handleCopyLink}
       />
-
-      {/* Nav Section */}
-      <Navbar setShowWaitlist={setShowWaitlist} showWaitlist={showWaitlist} />
 
       {/* Main content wrapper with blur class when waitlist overlay is visible */}
       <div className={showWaitlist ? "main-content blurred" : "main-content"}>
