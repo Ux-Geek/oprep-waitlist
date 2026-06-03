@@ -1008,7 +1008,7 @@ body {
   width: auto;
   color: var(--color-blue-brand);
   display: block;
-  margin-left: -4px; /* Optical alignment with the text block tagline */
+  margin-left: -6px; /* Optical alignment with the text block tagline */
 }
 
 .footer-tagline {

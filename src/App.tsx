@@ -124,7 +124,7 @@ export default function App() {
       />
 
       {/* Nav Section */}
-      <Navbar setShowWaitlist={setShowWaitlist} />
+      <Navbar setShowWaitlist={setShowWaitlist} showWaitlist={showWaitlist} />
 
       {/* Main content wrapper with blur class when waitlist overlay is visible */}
       <div className={showWaitlist ? "main-content blurred" : "main-content"}>

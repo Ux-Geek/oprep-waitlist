@@ -42,12 +42,17 @@ export default function WaitlistModal({
   return (
     <AnimatePresence>
       {showWaitlist && isLoaded && (
-        <div className="modal-layer" onClick={() => setShowWaitlist(false)}>
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          className="modal-layer" 
+          onClick={() => setShowWaitlist(false)}
+        >
           <motion.section 
-            initial={{ opacity: 0, y: 28, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.96 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            layoutId="waitlist-card-box"
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="waitlist-card"
             onClick={(e) => e.stopPropagation()}
           >
@@ -139,7 +144,7 @@ export default function WaitlistModal({
               </div>
             )}
           </motion.section>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
