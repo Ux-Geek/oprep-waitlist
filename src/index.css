@@ -47,12 +47,18 @@ body {
 }
 
 /* NAV & EXPANDED CARD */
-.nav-container {
+.nav-wrapper {
   position: fixed;
   top: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.nav-container {
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -64,7 +70,7 @@ body {
 }
 
 .nav-container.collapsed {
-  width: calc(100% - 32px);
+  width: calc(100vw - 32px);
   max-width: 450px;
   height: 70px;
   padding: 0 24px;
@@ -1019,7 +1025,10 @@ body {
   width: auto;
   color: var(--color-blue-brand);
   display: block;
-  margin-left: -22.5px; /* Visual text alignment with tagline 'A cracked...' */
+  /* Icon is ~36px wide in the 206px SVG, so at 30px tall (scale 0.476)
+     the icon takes ~17px, text 'O/Prep' starts at ~22px from left.
+     We pull the whole SVG left by the icon width so only text left-aligns with tagline. */
+  margin-left: -17px;
 }
 
 .footer-tagline {

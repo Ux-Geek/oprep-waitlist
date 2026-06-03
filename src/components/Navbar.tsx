@@ -38,12 +38,13 @@ export default function Navbar({
   handleCopyLink
 }: NavbarProps) {
   return (
-    <motion.nav 
-      layout
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`nav-container ${showWaitlist ? "expanded" : "collapsed"}`}
-    >
-      <AnimatePresence mode="wait">
+    <div className="nav-wrapper">
+      <motion.nav 
+        layout
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className={`nav-container ${showWaitlist ? "expanded" : "collapsed"}`}
+      >
+        <AnimatePresence mode="wait">
         {!showWaitlist ? (
           <motion.div 
             key="collapsed"
@@ -159,6 +160,7 @@ export default function Navbar({
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+      </motion.nav>
+    </div>
   );
 }
