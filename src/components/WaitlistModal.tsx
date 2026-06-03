@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Check, Copy, Share2 } from "lucide-react";
+import Logo from "./Logo";
 
 interface WaitlistSession {
   email: string;
@@ -52,11 +53,13 @@ export default function WaitlistModal({
           >
             {!submitted ? (
               <>
-                <div className="brand-pill">O/PREP EARLY ACCESS</div>
+                <div className="waitlist-header-group">
+                  <Logo className="waitlist-logo" />
 
-                <div className="waitlist-copy">
-                  <h1>A cracked, better way to study.</h1>
-                  <p>Enter your email for early access.</p>
+                  <div className="waitlist-copy">
+                    <h1>A cracked, better way to study.</h1>
+                    <p>Enter your email for early access.</p>
+                  </div>
                 </div>
 
                 <form className="waitlist-form" onSubmit={handleSubmit}>
@@ -72,15 +75,6 @@ export default function WaitlistModal({
                     {submitting ? "Joining..." : "Join Waitlist"}
                   </button>
                 </form>
-
-                <div className="explore-dismiss" style={{ textAlign: "center", marginTop: "-4px" }}>
-                  <span 
-                    onClick={() => setShowWaitlist(false)} 
-                    style={{ fontSize: "12px", color: "var(--color-blue-brand)", cursor: "pointer", fontWeight: 600 }}
-                  >
-                    Explore Preview First →
-                  </span>
-                </div>
               </>
             ) : (
               <div className="success-state">

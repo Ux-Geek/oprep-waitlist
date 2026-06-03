@@ -154,6 +154,21 @@ body {
   letter-spacing: 0.02em;
 }
 
+.waitlist-logo {
+  height: 28px;
+  width: auto;
+  color: var(--color-blue-brand);
+  align-self: flex-start;
+  display: block;
+  margin-left: -4px; /* Subtle optical alignment */
+}
+
+.waitlist-header-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .waitlist-copy {
   display: flex;
   flex-direction: column;
@@ -993,6 +1008,7 @@ body {
   width: auto;
   color: var(--color-blue-brand);
   display: block;
+  margin-left: -4px; /* Optical alignment with the text block tagline */
 }
 
 .footer-tagline {
