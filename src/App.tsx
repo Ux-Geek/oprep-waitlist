@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import WaitlistModal from "./components/WaitlistModal";
+import { motion, AnimatePresence } from "motion/react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import MockupReveal from "./components/MockupReveal";
@@ -106,11 +106,24 @@ export default function App() {
 
   return (
     <main className="page">
-      {/* Waitlist Modal First Screen overlay */}
-      <WaitlistModal
-        showWaitlist={showWaitlist}
-        setShowWaitlist={setShowWaitlist}
-        isLoaded={isLoaded}
+      {/* Backdrop overlay */}
+      <AnimatePresence>
+        {showWaitlist && isLoaded && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="modal-layer-backdrop" 
+            onClick={() => setShowWaitlist(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Nav Section */}
+      <Navbar 
+        setShowWaitlist={setShowWaitlist} 
+        showWaitlist={showWaitlist} 
         email={email}
         setEmail={setEmail}
         submitting={submitting}
@@ -122,9 +135,6 @@ export default function App() {
         handleWhatsAppShare={handleWhatsAppShare}
         handleCopyLink={handleCopyLink}
       />
-
-      {/* Nav Section */}
-      <Navbar setShowWaitlist={setShowWaitlist} showWaitlist={showWaitlist} />
 
       {/* Main content wrapper with blur class when waitlist overlay is visible */}
       <div className={showWaitlist ? "main-content blurred" : "main-content"}>
