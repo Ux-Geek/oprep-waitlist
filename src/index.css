@@ -1025,10 +1025,8 @@ body {
   width: auto;
   color: var(--color-blue-brand);
   display: block;
-  /* Icon is ~36px wide in the 206px SVG, so at 30px tall (scale 0.476)
-     the icon takes ~17px, text 'O/Prep' starts at ~22px from left.
-     We pull the whole SVG left by the icon width so only text left-aligns with tagline. */
-  margin-left: -17px;
+  align-self: flex-start; /* Prevents SVG stretching to full container width */
+  margin-left: 0;
 }
 
 .footer-tagline {
